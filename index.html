@@ -393,22 +393,24 @@
 
 
 		<section class="contact flf" id="contact">
-			<div class="container">
-				
-				<h2>Let's Talk</h2>
-				<h5>Use Below Form or Email me direct: <a href="mailto:seanepalesa01@gmail.com">seanepalesa01@gmail.com</a></h5>
+		<div class="container">
 
-				<form class="flf df_c_v jcsb" id="contactform" method="post" action="mail.php">
-					<input type="text" name="name" placeholder="Name*" required>
-					<input type="email" name="email" placeholder="Email*" required>
-					<input type="text" name="subject" placeholder="Subject*" required>
-					<textarea name="message" placeholder="Message..."></textarea>
-					<button id="submit" type="submit" name="submit">
-						Submit Message &nbsp; <span class="fa-solid fa-angle-right"></span>
-					</button>
-				</form>
+			<h2>Let's Talk</h2>
+			<h5>Use Below Form or Email me direct: <a href="mailto:seanepalesa01@gmail.com">seanepalesa01@gmail.com</a></h5>
 
-			</div>
+			<form class="flf df_c_v jcsb" id="contactform">
+			<input type="text" name="name" placeholder="Name*" required>
+			<input type="email" name="email" placeholder="Email*" required>
+			<input type="text" name="subject" placeholder="Subject*" required>
+			<textarea name="message" placeholder="Message..."></textarea>
+			<button id="submit" type="submit">
+				Submit Message &nbsp; <span class="fa-solid fa-angle-right"></span>
+			</button>
+			</form>
+
+			<div id="form-status" style="margin-top:1rem;"></div>
+
+		</div>
 		</section>
 
 
@@ -426,9 +428,50 @@
 					<button onclick="closeModal()">Close</button>
 				</div>
 			</div>
-		</div>
+		</div> 
 
 
+		<!-- Include EmailJS SDK -->
+		<script type="module">	
+  		import * as emailjs from 'https://cdn.jsdelivr.net/npm/@emailjs/browser@4/+esm';
+
+		// (function() {
+		// 	emailjs.init('Dh0bYs_vQ2GiSwrXo'); // Replace with your EmailJS public key
+		// })();
+		emailjs.init('Dh0bYs_vQ2GiSwrXo'); 
+
+		const form = document.getElementById('contactform');
+		const submitBtn = document.getElementById('submit');
+		const statusDiv = document.getElementById('form-status');
+
+		form.addEventListener('submit', function(e) {
+			e.preventDefault();
+			submitBtn.disabled = true;
+			submitBtn.innerHTML = 'Please wait... <span class="fas fa-circle-notch fa-spin"></span>';
+
+			const templateParams = {
+			name: form.name.value,
+			email: form.email.value,
+			subject: form.subject.value,
+			message: form.message.value
+			};
+
+			emailjs.send('service_w9ok516', 'template_gqv5jke', templateParams)
+			.then(function(response) {
+				 showModal();
+				 
+				form.reset();
+				submitBtn.disabled = false;
+				submitBtn.innerHTML = 'Submit Message &nbsp; <span class="fa-solid fa-angle-right"></span>';
+			}, function(error) {
+				statusDiv.style.color = 'red';
+				statusDiv.textContent = 'Failed to send message, please try again later.';
+				submitBtn.disabled = false;
+				submitBtn.innerHTML = 'Submit Message &nbsp; <span class="fa-solid fa-angle-right"></span>';
+				console.error('FAILED...', error);
+			});
+		});
+		</script>
 		<footer class="flf">
 			<div class="container">
 
