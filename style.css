@@ -472,4 +472,46 @@
 	font-weight: bold;
 	cursor: pointer;
 }
+  .cv-mobile {
+    display: flex;
+    flex-direction: row;
+    gap: 10px; /* Adds space between buttons when stacked */
+    margin-top: 20px;
+  }
+    .btn {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #009688; /* turquoise */
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    text-align: center;
+  }
 
+  .btn:hover {
+    background-color: #00796B;
+  }
+@media (max-width: 768px) {
+
+
+  .cv-mobile {
+    display: flex;
+    flex-direction: column;
+    gap: 10px; /* Adds space between buttons when stacked */
+    margin-top: 20px;
+  }
+
+  .btn {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #009688; /* turquoise */
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    text-align: center;
+  }
+
+  .btn:hover {
+    background-color: #00796B;
+  }
+}
