@@ -384,7 +384,6 @@
 	.item {
 	display: flex;
 	align-items: center; /* Align vertically */
-	gap: 10px; /* Add spacing between icon and text */
 	}
 
 	.icon span {
